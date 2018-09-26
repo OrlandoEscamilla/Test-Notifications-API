@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<div id="aviso"></div>
+<p>¿Quieres activar las notificaciones?</p>
+<button onclick="notifyMe()">Notify me!</button>
+
+<script>
+
+function notifyMe() {
+  // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  }
+
+  // Let's check whether notification permissions have already been granted
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    var notification = new Notification("Hi there!");
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (Notification.permission !== "denied") {
+    Notification.requestPermission(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification("Hi there!");
+      }
+    });
+  }
+
+  // At last, if the user has denied notifications, and you 
+  // want to be respectful there is no need to bother them any more.
+}
+/*
+ if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  }
+
+window.addEventListener('load',init);
+
+function init(){
+	document.querySelector('#activar_notificacion').addEventListener('click',function(){
+		if(window.Notification.checkPermission() == 0) createNotification();
+		else window.Notification.requestPermission();
+	}, false);
+	createNotification();
+}
+
+function createNotification(){
+	var notificacion = window.Notification.createNotification("","Uso de Notification API", "¡Felicidades! ya has configurado las notificaciones :)");
+	notificacion.show();
+	notificacion.addEventListener('display',function(){
+		document.querySelector('#aviso').innerHTML = "Estamos mostrando la notificación";
+	},false);
+	notificacion.addEventListener('close',function(){
+		document.querySelector('#aviso').innerHTML = "Se ha cerrado la notificación";
+	},false);
+}
+
+*/
+</script>
+
+</body>
+</html>
